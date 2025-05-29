@@ -7,13 +7,13 @@ let single_title = "ネーブルオレンジ"
 let single_hashtag = "#乃木坂46_ネーブルオレンジ"
 let other_hashtag = ""//"#さつきとーく"
 // Noto Color Emoji
-let sentence = "🩷「この子達の乃木坂46としての未来がより明るいものになるように頑張らなきゃ！とも思ったりしました。」🩵"
+let sentence = "🩷「でも皆さんの声が聞こえた瞬間、緊張が一気に自分のパワーになって。」🩵"
 let sentence_bold = "「乃木坂46を受けようと思ったきっかけはなんですか？」"
 let sentence1 = "最終的に、この道を選んだのは私自身。"
 let sentence2 = "他の誰でもなく自分の心に従った結果なのだから、変われる気がするんです。"
 let sentence3 = "これからの乃木坂人生、がむしゃらに、全力で駆け抜けるつもりです。"
 let sentence_end = ""//"❤️🤍「久しぶりにゆっくり色々話せてよかったし楽しかったー」🩷🩵"
-let entry = 13
+let entry = 14
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
 let center = [] //センター ｾﾝﾀｰ
 let w_center = ["井上和", "中西アルノ"]
