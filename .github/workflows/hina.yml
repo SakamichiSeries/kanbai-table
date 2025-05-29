@@ -61,4 +61,6 @@ jobs:
               git push
       env:
           PAT: ${{ secrets.PAT }}          
+          COOKIE_BASE64: ${{ secrets.COOKIE_BASE64 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}       
 
