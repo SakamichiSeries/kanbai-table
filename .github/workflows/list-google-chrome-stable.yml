@@ -1,0 +1,26 @@
+name: list-google-chrome-stable
+
+on:
+  # schedule:
+  #   - cron: '20,50 * * * *'
+  # push:
+  #   branches:
+  #     - master
+  workflow_dispatch:
+
+jobs:
+  list-google-chrome-stable:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8' # Specify the Python version you need
+
+    - name: Run script
+      run: |
+        apt list google-chrome-stable
