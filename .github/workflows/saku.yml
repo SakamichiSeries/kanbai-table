@@ -46,6 +46,10 @@ jobs:
         npm install
         tmux new-session -d -s mysession 'npm run dev'
         python public/saku/gen_table.py
+      env:
+          PAT: ${{ secrets.PAT }}          
+          COOKIE_BASE64: ${{ secrets.COOKIE_BASE64 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Commit changes
       run: |
