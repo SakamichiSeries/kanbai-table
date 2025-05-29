@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+from dotenv import load_dotenv
+import base64
 
 
 entry = 6
@@ -8,8 +10,10 @@ fetch_url = f"https://fortunemusic.jp/hinatazaka_202505/{entry+1}/goods_list/"
 
 # Get the directory of the current Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(script_dir, "../headers.json"), "r") as f:
-    headers = json.load(f)
+load_dotenv()
+headers = json.loads(base64.b64decode(os.getenv("COOKIE_BASE64")).decode("utf-8"))
+# print(headers)
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 
 def test_login():

@@ -15,6 +15,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        ref: master # Ensure you are on the correct branch
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -27,6 +29,7 @@ jobs:
         pip install pytz
         pip install selenium
         pip install Pillow
+        pip install python-dotenv
         sudo apt install unzip wget p7zip-full tmux -y
         wget -q https://github.com/be5invis/Sarasa-Gothic/releases/download/v1.0.29/SarasaUiJ-TTF-1.0.29.7z
         7z x SarasaUiJ-TTF-1.0.29.7z
