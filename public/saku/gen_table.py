@@ -211,7 +211,7 @@ if test_login():
         current_second = datetime.datetime.now(tokyo_tz).second
         print(current_hour, current_min, current_second, fetch_url)
 
-        if current_hour >= 14 and current_second >= 5:
+        if current_hour >= 12 and current_second >= 5:
             try:
                 fetch_html()
                 parse_html()
