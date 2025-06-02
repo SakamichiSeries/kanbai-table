@@ -1,18 +1,24 @@
 import requests
 import json
 import os
+from dotenv import load_dotenv
+import base64
 
 # https://x.com/makoto46_CYC/status/1925116261538877518
 # need to change date in code manually!!!!!!!!!!!!!!!!!!!!!!!!!
 # need to change 1,1.5,2,2.5 in last in code!!!!!!!!
 # have to use 1.5 instead of 1保 or 1+ because we need to compare 1<1.5<2<2.5<3
-last = 0
-current = 1
+last = 1
+current = 1.5
 
 # Get the directory of the current Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-with open(os.path.join(script_dir, "../headers.json"), "r") as f:
-    headers = json.load(f)
+# Get the directory of the current Python script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+load_dotenv()
+headers = json.loads(base64.b64decode(os.getenv("COOKIE_BASE64")).decode("utf-8"))
+# print(headers)
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 fetch_url = f"https://ticket.fortunemeets.app/data/hinatazaka46/14th/config.json"
 # https://ticket.fortunemeets.app/data/nogizaka46/35th/config.json
 
