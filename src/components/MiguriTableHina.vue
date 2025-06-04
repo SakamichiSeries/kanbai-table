@@ -7,7 +7,7 @@ let single_title = "Love yourself!"
 let single_hashtag = "#日向坂46_Loveyourself"
 let other_hashtag = ""
 let sentence = ""//"🩵「そんな中で誰一人欠けることなくステージに立てたのは本当に嬉しいことでした」🧡"
-let entry = 6
+let entry = 7
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
 let center = ['小坂　菜緒']
 let w_center = []

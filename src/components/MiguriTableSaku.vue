@@ -7,7 +7,7 @@ let single_title = "Make or Break"
 let single_hashtag = "#櫻坂46_MakeorBreak"
 let other_hashtag = ""
 let sentence = ""//"🩷「11人もいるのに一つの輪でうれしいな~」🩷"  //
-let entry = 1
+let entry = 2
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
 let center = ['的野　美青']
 let w_center = []
