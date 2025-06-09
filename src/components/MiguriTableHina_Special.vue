@@ -6,8 +6,8 @@ let title = "14thシングル『Love yourself!』 "
 let single_hashtag = "#日向坂46_Loveyourself"
 
 let sentence = ""
-let entry = 1.5 // entry can be "1", "1.5", "2", "2.5", "3" ...
-let result_name = "1次応募保障結果"//"1次応募保障結果"
+let entry = 2 // entry can be "1", "1.5", "2", "2.5", "3" ...
+let result_name = "2次応募結果"//"1次応募保障結果"
 let center = ['小坂菜緒']
 let w_center = []
 let row_1 = ["金村美玖", "上村ひなの", "正源司陽子", '藤嶌果歩']
