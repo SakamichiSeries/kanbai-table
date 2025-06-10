@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 import base64
 
-entry = 2
+entry = 3
 fetch_url = f"https://fortunemusic.jp/sakurazaka_202506/{entry+1}/goods_list/"
 
 # Get the directory of the current Python script
@@ -68,11 +68,61 @@ def parse_json():
 
                 temp = []
                 if "parts" in date:
+                    if member["name"] in [
+                        "稲熊　ひな",
+                        "勝又　春",
+                        "佐藤　愛桜",
+                        "中川　智尋",
+                        "山田　桃実",
+                        "稲熊ひな",
+                        "勝又春",
+                        "佐藤愛桜",
+                        "中川智尋",
+                        "山田桃実",
+                    ]:
+                        temp.extend([-1])
+                    if member["name"] in [
+                        "浅井　恋乃未",
+                        "松本　和子",
+                        "目黒　陽色",
+                        "山川　宇衣",
+                        "浅井恋乃未",
+                        "松本和子",
+                        "目黒陽色",
+                        "山川宇衣",
+                    ]:
+                        temp.extend([-1, -1, -1])
+
                     for part in date["parts"]:
                         if part["stock"] > 0:
                             temp.append(0)
                         else:
                             temp.append(1)  # lottery index
+
+                    if member["name"] in [
+                        "稲熊　ひな",
+                        "勝又　春",
+                        "佐藤　愛桜",
+                        "中川　智尋",
+                        "山田　桃実",
+                        "稲熊ひな",
+                        "勝又春",
+                        "佐藤愛桜",
+                        "中川智尋",
+                        "山田桃実",
+                    ]:
+                        temp.extend([-1, -1, -1])
+                    if member["name"] in [
+                        "浅井　恋乃未",
+                        "松本　和子",
+                        "目黒　陽色",
+                        "山川　宇衣",
+                        "浅井恋乃未",
+                        "松本和子",
+                        "目黒陽色",
+                        "山川宇衣",
+                    ]:
+                        temp.extend([-1])
                     result[member["name"]][date["date"]] = temp
 
         with open(os.path.join(script_dir, "result_parsed.json"), "w") as json_result:

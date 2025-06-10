@@ -7,7 +7,7 @@ let single_title = "Make or Break"
 let single_hashtag = "#櫻坂46_MakeorBreak"
 let other_hashtag = ""
 let sentence = ""//"🩷「11人もいるのに一つの輪でうれしいな~」🩷"  //
-let entry = 2
+let entry = 3
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
 let center = ['的野　美青']
 let w_center = []
@@ -24,7 +24,7 @@ let ki2 = ['井上　梨名', '遠藤　光莉', '大園　玲', '大沼　晶�
 
 let ki3 = ['石森　璃花', '遠藤　理子', "小田倉　麗奈", '小島　凪紗', '谷口　愛季', '中嶋　優月', '的野　美青', '向井　純葉', '村井　優', '村山　美羽', '山下　瞳月']
 
-let ki4 = []
+let ki4 = ["稲熊　ひな", "勝又　春", "佐藤　愛桜", "中川　智尋", "山田　桃実", "浅井　恋乃未", "松本　和子", "目黒　陽色", "山川　宇衣"]
 
 const getKi = {}
 
@@ -231,7 +231,7 @@ setTimeout(captureScreenshot, 1500)
         </thead>
         <tbody>
 
-          <template v-for="ki in [2, 3]">
+          <template v-for="ki in [2, 3, 4]">
             <tr class="top-border bottom-border lighter-pink-bg">
 
               <td style="font-weight: bold;" class="right-align">
