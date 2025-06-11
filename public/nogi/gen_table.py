@@ -3,9 +3,10 @@ import json
 import os
 from dotenv import load_dotenv
 import base64
+import subprocess
 
-entry = 14
-fetch_url = f"https://fortunemusic.jp/nogizaka_202503/{entry+1}/goods_list/"
+entry = 0
+fetch_url = f"https://fortunemusic.jp/nogizaka_202507/{entry+1}/goods_list/"
 
 # Get the directory of the current Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -69,28 +70,15 @@ def parse_json():
                 temp = []
                 if "parts" in date:
                     if (
+                        member["name"] == "林瑠奈"
+                        and date["date"] == "2025年8月30日（土）"
+                    ):
+                        temp.extend([-1, -1, -1, -1, -1])
+                    if (
                         member["name"] == "黒見明香"
-                        and date["date"] == "2025年3月30日（日）"
+                        and date["date"] == "2025年10月12日（日）"
                     ):
-                        temp.extend([-1, -1, -1, -1])
-                    if (
-                        member["name"] == "海邉朱莉"
-                        or member["name"] == "川端晃菜"
-                        or member["name"] == "瀬戸口心月"
-                        or member["name"] == "長嶋凛桜"
-                        or member["name"] == "矢田萌華"
-                    ):
-                        temp.extend([-1])
-
-                    if (
-                        member["name"] == "愛宕心響"
-                        or member["name"] == "大越ひなの"
-                        or member["name"] == "小津玲奈"
-                        or member["name"] == "鈴木佑捺"
-                        or member["name"] == "増田三莉音"
-                        or member["name"] == "森平麗心"
-                    ):
-                        temp.extend([-1, -1, -1])
+                        temp.extend([-1, -1, -1, -1, -1])
 
                     for part in date["parts"]:
                         if part["stock"] > 0:
@@ -98,14 +86,28 @@ def parse_json():
                         else:
                             temp.append(1)  # lottery index
 
-                    if (
-                        member["name"] == "海邉朱莉"
-                        or member["name"] == "川端晃菜"
-                        or member["name"] == "瀬戸口心月"
-                        or member["name"] == "長嶋凛桜"
-                        or member["name"] == "矢田萌華"
-                    ):
-                        temp.extend([-1, -1])
+                    if member["name"] == "愛宕心響":
+                        temp = [temp[0], temp[1], -1, temp[2], -1]
+                    if member["name"] == "大越ひなの":
+                        temp = [temp[0], temp[1], -1, temp[2], -1]
+                    # if member["name"] == "小津玲奈":
+                    #     temp = [temp[0], temp[1], temp[2]]
+                    if member["name"] == "海邉朱莉":
+                        temp = [temp[0], -1, temp[1], temp[2], -1]
+                    if member["name"] == "川端晃菜":
+                        temp = [-1, temp[0], temp[1], -1, temp[2]]
+                    if member["name"] == "鈴木佑捺":
+                        temp = [-1, temp[0], temp[1], -1, temp[2]]
+                    if member["name"] == "瀬戸口心月":
+                        temp = [temp[0], -1, temp[1], temp[2], -1]
+                    if member["name"] == "長嶋凛桜":
+                        temp = [temp[0], -1, temp[1], -1, temp[2]]
+                    if member["name"] == "増田三莉音":
+                        temp = [temp[0], -1, temp[1], -1, temp[2]]
+                    if member["name"] == "森平麗心":
+                        temp = [-1, temp[0], -1, temp[1], temp[2]]
+                    if member["name"] == "矢田萌華":
+                        temp = [-1, temp[0], -1, temp[1], temp[2]]
 
                     result[member["name"]][date["date"]] = temp
 
@@ -115,32 +117,35 @@ def parse_json():
 
 
 def gen_json():
-    last = 0
-    for i in range(1, 46):
-        if os.path.exists(os.path.join(script_dir, f"result_{i}.json")):
-            last = i
-    with open(os.path.join(script_dir, f"result_{last}.json"), "r") as last_json_result:
+    if entry == 0:
+        src = os.path.join(script_dir, "result_parsed.json")
+        dst = os.path.join(script_dir, "result_0.json")
+        subprocess.run(["cp", src, dst], check=True)
+    else:
         with open(
-            os.path.join(script_dir, f"result_parsed.json"), "r"
-        ) as current_json_result:
-
-            data_current = json.load(current_json_result)
-            data = json.load(last_json_result)
-            for member in data:
-                for date in data[member]:
-                    for part in range(0, 5):
-                        # print(member, date, part)
-                        if (
-                            member in data_current
-                            and date in data_current[member]
-                            and data_current[member][date][part] > 0
-                            and data[member][date][part] == 0
-                        ):
-                            data[member][date][part] = last + 1
+            os.path.join(script_dir, f"result_{entry-1}.json"), "r"
+        ) as last_json_result:
             with open(
-                os.path.join(script_dir, f"result_{last+1}.json"), "w"
-            ) as json_result:
-                json.dump(data, json_result, ensure_ascii=False, indent=2)
+                os.path.join(script_dir, f"result_parsed.json"), "r"
+            ) as current_json_result:
+
+                data_current = json.load(current_json_result)
+                data = json.load(last_json_result)
+                for member in data:
+                    for date in data[member]:
+                        for part in range(0, 5):
+                            # print(member, date, part)
+                            if (
+                                member in data_current
+                                and date in data_current[member]
+                                and data_current[member][date][part] > 0
+                                and data[member][date][part] == 0
+                            ):
+                                data[member][date][part] = entry
+                with open(
+                    os.path.join(script_dir, f"result_{entry}.json"), "w"
+                ) as json_result:
+                    json.dump(data, json_result, ensure_ascii=False, indent=2)
 
 
 import datetime

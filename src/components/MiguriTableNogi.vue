@@ -1,25 +1,25 @@
 <script setup>
 import { ref } from 'vue'
 import html2canvas from 'html2canvas';
-let single = 38
+let single = 39
 let single_end = "th"
-let single_title = "ネーブルオレンジ"
-let single_hashtag = "#乃木坂46_ネーブルオレンジ"
+let single_title = "Same numbers"
+let single_hashtag = "#乃木坂46_samenumbers"
 let other_hashtag = ""//"#さつきとーく"
 // Noto Color Emoji
-let sentence = "🩷「でも皆さんの声が聞こえた瞬間、緊張が一気に自分のパワーになって。」🩵"
+let sentence = ""//"🩷「でも皆さんの声が聞こえた瞬間、緊張が一気に自分のパワーになって。」🩵"
 let sentence_bold = "「乃木坂46を受けようと思ったきっかけはなんですか？」"
 let sentence1 = "最終的に、この道を選んだのは私自身。"
 let sentence2 = "他の誰でもなく自分の心に従った結果なのだから、変われる気がするんです。"
 let sentence3 = "これからの乃木坂人生、がむしゃらに、全力で駆け抜けるつもりです。"
 let sentence_end = ""//"❤️🤍「久しぶりにゆっくり色々話せてよかったし楽しかったー」🩷🩵"
-let entry = 14
+let entry = 0
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
 let center = [] //センター ｾﾝﾀｰ
-let w_center = ["井上和", "中西アルノ"]
+let w_center = []
 let row_1 = [] // フロント ﾌﾛﾝﾄ
-let fukujin = ["五百城茉央", "池田瑛紗", "小川彩", "川﨑桜", "一ノ瀬美空",]
-let senbatsu = ["金川紗耶", "田村真佑", "筒井あやめ", "林瑠奈", "奥田いろは", "菅原咲月", "冨里奈央", "弓木奈於"]
+let fukujin = []
+let senbatsu = []
 
 
 const response = await fetch(`../nogi/result_${entry}.json`);
