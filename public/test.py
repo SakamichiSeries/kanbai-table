@@ -1,10 +1,18 @@
 import requests
 import json
 import os
+from dotenv import load_dotenv
+import base64
+import subprocess
 
 
 # Get the directory of the current Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
+load_dotenv()
+headers = json.loads(base64.b64decode(os.getenv("COOKIE_BASE64")).decode("utf-8"))
+# print(headers)
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+
 
 import datetime
 import time
@@ -102,9 +110,9 @@ import pytz
 try:
     get_result_img("http://localhost:5173#n")
     # get_result_img("http://localhost:5173#s")
-    get_result_img("http://localhost:5173#sa")
+    #get_result_img("http://localhost:5173#sa")
     get_result_img("http://localhost:5173#h")
-    get_result_img("http://localhost:5173#ns")
+    #get_result_img("http://localhost:5173#ns")
     
 except:
     pass

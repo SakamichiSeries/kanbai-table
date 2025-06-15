@@ -41,16 +41,7 @@ jobs:
         npm install
         tmux new-session -d -s mysession 'npm run dev'
         python public/test.py
-
-    - name: Commit changes
-      run: |
-              git remote set-url origin https://SakamichiSeries:${PAT}@github.com/SakamichiSeries/kanbai-table.git
-              git config --global user.email "actions@github.com"    
-              git config --global user.name "GitHub Actions"
-              git add .
-              git remote -v
-              git remote get-url origin
-              git commit -m "Data updated at $(TZ='Asia/Tokyo' date)" || echo "No changes to commit"
-              git push
       env:
-          PAT: ${{ secrets.PAT }}     
+          PAT: ${{ secrets.PAT }}          
+          COOKIE_BASE64: ${{ secrets.COOKIE_BASE64 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
