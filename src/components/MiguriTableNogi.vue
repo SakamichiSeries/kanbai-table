@@ -257,7 +257,7 @@ setTimeout(captureScreenshot, 1500)
 
             <th v-for="date in dates" :key="date" class="left-border" colspan="5"
               style="width: 100px; font-weight: normal">
-              {{ date.replace("（日）", "(日)").replace("2024年", "").replace("2025年", "") }}
+              {{ date.replace("（日）", "(日)").replace("（土）", "(土)").replace("（火・祝）", "(火祝)").replace("2024年", "").replace("2025年", "") }}
             </th>
             <th class="left-align left-border" style="max-width: 160px;width:160px;font-weight: normal">
               {{ sold[0] }}/{{ available[0] }} (+{{ soldThisTime[0] }})
