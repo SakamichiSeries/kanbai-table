@@ -8,8 +8,8 @@ import base64
 # need to change date in code manually!!!!!!!!!!!!!!!!!!!!!!!!!
 # need to change 1,1.5,2,2.5 in last in code!!!!!!!!
 # have to use 1.5 instead of 1保 or 1+ because we need to compare 1<1.5<2<2.5<3
-last = 1.5
-current = 2
+last = 2
+current = 2.5
 
 # Get the directory of the current Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
