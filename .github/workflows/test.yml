@@ -15,6 +15,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        ref: master # Ensure you are on the correct branch
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -27,14 +29,17 @@ jobs:
         pip install pytz
         pip install selenium
         pip install Pillow
+        pip install python-dotenv
         sudo apt install unzip wget p7zip-full tmux -y
-        wget https://github.com/be5invis/Sarasa-Gothic/releases/download/v1.0.29/SarasaUiJ-TTF-1.0.29.7z
+        wget -q https://github.com/be5invis/Sarasa-Gothic/releases/download/v1.0.29/SarasaUiJ-TTF-1.0.29.7z
         7z x SarasaUiJ-TTF-1.0.29.7z
         ls -R
         sudo cp *.ttf /usr/local/share/fonts
         fc-cache -f -v
         fc-list | grep Sarasa
-        wget https://storage.googleapis.com/chrome-for-testing-public/134.0.6998.88/linux64/chromedriver-linux64.zip
+        wget -q https://dl.google.com/linux/deb/pool/main/g/google-chrome-stable/google-chrome-stable_134.0.6998.88-1_amd64.deb
+        wget -q https://storage.googleapis.com/chrome-for-testing-public/134.0.6998.88/linux64/chromedriver-linux64.zip
+        sudo apt install ./google-chrome-stable_134.0.6998.88-1_amd64.deb -y --allow-downgrades
         unzip chromedriver-linux64.zip
         sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
         sudo chmod +x /usr/bin/chromedriver
