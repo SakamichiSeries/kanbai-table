@@ -13,13 +13,15 @@ let sentence1 = "最終的に、この道を選んだのは私自身。"
 let sentence2 = "他の誰でもなく自分の心に従った結果なのだから、変われる気がするんです。"
 let sentence3 = "これからの乃木坂人生、がむしゃらに、全力で駆け抜けるつもりです。"
 let sentence_end = ""//"❤️🤍「久しぶりにゆっくり色々話せてよかったし楽しかったー」🩷🩵"
-let entry = 0
+let entry = 1
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
 let center = [] //センター ｾﾝﾀｰ
 let w_center = []
-let row_1 = [] // フロント ﾌﾛﾝﾄ
-let fukujin = []
-let senbatsu = []
+let row_1 = ["一ノ瀬美空", "川﨑桜"] // フロント ﾌﾛﾝﾄ
+let fukujin = ["井上和", "中西アルノ", "池田瑛紗"]
+let senbatsu = ["菅原咲月",
+  "冨里奈央", "岡本姫奈",
+  "小川彩", "五百城茉央", "弓木奈於", "筒井あやめ",]
 
 
 const response = await fetch(`../nogi/result_${entry}.json`);
@@ -257,7 +259,8 @@ setTimeout(captureScreenshot, 1500)
 
             <th v-for="date in dates" :key="date" class="left-border" colspan="5"
               style="width: 100px; font-weight: normal">
-              {{ date.replace("（日）", "(日)").replace("（土）", "(土)").replace("（火・祝）", "(火祝)").replace("2024年", "").replace("2025年", "") }}
+              {{ date.replace("（日）", "(日)").replace("（土）", "(土)").replace("（火・祝）", "(火祝)").replace("2024年",
+                "").replace("2025年", "") }}
             </th>
             <th class="left-align left-border" style="max-width: 160px;width:160px;font-weight: normal">
               {{ sold[0] }}/{{ available[0] }} (+{{ soldThisTime[0] }})

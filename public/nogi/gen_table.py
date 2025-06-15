@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import base64
 import subprocess
 
-entry = 0
+entry = 1
 fetch_url = f"https://fortunemusic.jp/nogizaka_202507/{entry+1}/goods_list/"
 
 # Get the directory of the current Python script
