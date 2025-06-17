@@ -1,54 +1,94 @@
 <script setup>
 import { ref } from 'vue'
 import html2canvas from 'html2canvas';
-let single = 12
+let single = 39
 let single_end = "th"
-let single_title = "Make or Break"
-let single_hashtag = "#櫻坂46_MakeorBreak"
-let other_hashtag = ""
-let sentence = ""//"🩷「11人もいるのに一つの輪でうれしいな~」🩷"  //
-let entry = 4
+let single_title = "Same numbers"
+let single_hashtag = "#乃木坂46_samenumbers"
+let other_hashtag = ""//"#さつきとーく"
+// Noto Color Emoji
+let sentence = "😡小黑子们不许拿我的图攻击菅原咲月👊"//"🩷「でも皆さんの声が聞こえた瞬間、緊張が一気に自分のパワーになって。」🩵"
+let sentence_bold = "「乃木坂46を受けようと思ったきっかけはなんですか？」"
+let sentence1 = "最終的に、この道を選んだのは私自身。"
+let sentence2 = "他の誰でもなく自分の心に従った結果なのだから、変われる気がするんです。"
+let sentence3 = "これからの乃木坂人生、がむしゃらに、全力で駆け抜けるつもりです。"
+let sentence_end = ""//"❤️🤍「久しぶりにゆっくり色々話せてよかったし楽しかったー」🩷🩵"
+let entry = 1
 // max 20 https://senublog.com/nogizaka46-29th-soldout-list/
-let center = ['的野　美青']
+let center = [] //センター ｾﾝﾀｰ
 let w_center = []
-let row_1 = ['田村　保乃', '山﨑　天']
-let row_2 = ['藤吉　夏鈴', '山下　瞳月', '村井　優', '守屋　麗奈', '森田　ひかる']
-let row_3 = ['松田　里奈', '谷口　愛季', '中嶋　優月', '向井　純葉', '大園　玲', '村山　美羽']
+let row_1 = ["一ノ瀬美空", "川﨑桜"] // フロント ﾌﾛﾝﾄ
+let fukujin = ["井上和", "中西アルノ", "池田瑛紗"]
+let senbatsu = ["菅原咲月",
+  "冨里奈央", "岡本姫奈",
+  "小川彩", "五百城茉央", "弓木奈於", "筒井あやめ",]
 
 
-const response = await fetch(`../saku/result_${entry}.json`);
+const response = await fetch(`../nogi/result_${entry}.json`);
 const data = await response.json();
-let ki1 = ['上村　莉菜', '小池　美波', '齋藤　冬優花',]
 
-let ki2 = ['井上　梨名', '遠藤　光莉', '大園　玲', '大沼　晶保', '幸阪　茉里乃', '武元　唯衣', '田村　保乃', '藤吉　夏鈴', '増本　綺良', '松田　里奈', '森田　ひかる', '守屋　麗奈', '山﨑　天']
+let ki3 = ["伊藤理々杏",
+  "佐藤楓",
+  "中村麗乃",
+  "向井葉月",
+  "吉田綾乃クリスティー"]
 
-let ki3 = ['石森　璃花', '遠藤　理子', "小田倉　麗奈", '小島　凪紗', '谷口　愛季', '中嶋　優月', '的野　美青', '向井　純葉', '村井　優', '村山　美羽', '山下　瞳月']
+let ki4 = ["金川紗耶",
+  "黒見明香",
+  "佐藤璃果",
+  "柴田柚菜",
+  "田村真佑",
+  "筒井あやめ",
+  "林瑠奈",
+  "松尾美佑",
+  "矢久保美緒",
+  "弓木奈於"]
 
-let ki4 = ["稲熊　ひな", "勝又　春", "佐藤　愛桜", "中川　智尋", "山田　桃実", "浅井　恋乃未", "松本　和子", "目黒　陽色", "山川　宇衣"]
+let ki5 = ["五百城茉央",
+  "池田瑛紗",
+  "一ノ瀬美空",
+  "井上和",
+  "岡本姫奈",
+  "小川彩",
+  "奥田いろは",
+  "川﨑桜",
+  "菅原咲月",
+  "冨里奈央",
+  "中西アルノ"]
+
+let ki6 = ["愛宕心響",
+  "大越ひなの",
+  "小津玲奈",
+  "海邉朱莉",
+  "川端晃菜",
+  "鈴木佑捺",
+  "瀬戸口心月",
+  "長嶋凛桜",
+  "増田三莉音",
+  "森平麗心",
+  "矢田萌華"]
 
 const getKi = {}
 
-for (let index = 0; index < ki1.length; index++) {
-  getKi[ki1[index]] = 1;
-}
-for (let index = 0; index < ki2.length; index++) {
-  getKi[ki2[index]] = 2;
-}
 for (let index = 0; index < ki3.length; index++) {
   getKi[ki3[index]] = 3;
 }
 for (let index = 0; index < ki4.length; index++) {
   getKi[ki4[index]] = 4;
 }
-
-
+for (let index = 0; index < ki5.length; index++) {
+  getKi[ki5[index]] = 5;
+}
+for (let index = 0; index < ki6.length; index++) {
+  getKi[ki6[index]] = 6;
+}
 
 
 let parsed = []
 let dates = []
-let available = [0, 0, 0, 0, 0, 0]  // total, 1ki, 2ki, 3ki, 4ki, 5ki
-let sold = [0, 0, 0, 0, 0, 0]
-let soldThisTime = [0, 0, 0, 0, 0, 0]
+let available = [0, 0, 0, 0, 0, 0, 0]  // total, 1ki, 2ki, 3ki, 4ki, 5ki, 6ki
+let sold = [0, 0, 0, 0, 0, 0, 0]
+let soldThisTime = [0, 0, 0, 0, 0, 0, 0]
 
 for (const memberName in data) {
   if (Object.hasOwnProperty.call(data, memberName)) {
@@ -160,12 +200,11 @@ for (let index = 0; index < sorted_parsed.length; index++) {
 
 console.log(parsed, sorted_parsed, dates, available, sold, soldThisTime)
 
-let dates1 = [dates[0], dates[1], dates[2], dates[3], dates[4], dates[5]]
-let dates2 = [dates[0], dates[1], dates[2], dates[6], dates[7], dates[8]]
-
 const captureScreenshot = () => {
   const mainElement = document.querySelectorAll(".main")[0];
+
   const imgElement = document.querySelectorAll("img")[0];
+
   html2canvas(mainElement).then(canvas => {
     // Convert canvas to data URL
     const dataUrl = canvas.toDataURL('image/png');
@@ -178,11 +217,12 @@ const captureScreenshot = () => {
   }).catch(err => {
     console.error('Error capturing screenshot:', err);
   });
+
 }
 
-const one_to_36 = []
-for (let index = 1; index <= 36; index++) {
-  one_to_36.push(index)
+const one_to_30 = []
+for (let index = 1; index <= 30; index++) {
+  one_to_30.push(index)
 }
 
 setTimeout(captureScreenshot, 1500)
@@ -190,13 +230,13 @@ setTimeout(captureScreenshot, 1500)
 
 <template>
   This site should be displayed under 100% zoom<br><br>
-  <a :href="`https://fortunemusic.jp/sakurazaka_202410/${entry + 1}/goods_list/`">https://fortunemusic.jp/sakurazaka_202410/{{
+  <a :href="`https://fortunemusic.jp/nogizaka_202503/${entry + 1}/goods_list/`">https://fortunemusic.jp/nogizaka_202503/{{
     entry + 1 }}/goods_list/</a><br><br>
   <!-- #姫奈おめでとう<br>
   #やっぱり5期生が大好きなんですよ<br> -->
-  櫻坂46 {{ single }}{{ single_end }}シングル「{{ single_title }}」ミーグリ {{ entry }}次抽選結果<br>
-  #櫻坂46 #Sakurazaka46<br>
-  #櫻坂46完売表<br>
+  乃木坂46 {{ single }}{{ single_end }}シングル「{{ single_title }}」ミーグリ {{ entry }}次抽選結果<br>
+  #乃木坂46 #Nogizaka46<br>
+  #乃木坂46完売表<br>
   {{ single_hashtag }}<br>
   {{ other_hashtag }}<br>
   <img src="" style="max-width: 720px;"></img>
@@ -205,12 +245,10 @@ setTimeout(captureScreenshot, 1500)
     <div class="container svelte-6daqx1">
       <table class="table-bordered svelte-6daqx1" style="border-collapse: collapse;">
         <!-- table-layout: fixed;width: 100%; -->
-
         <thead>
           <tr>
             <th style="font-size: larger;font-weight: bolder;" class="bottom-border" colspan="38">
-              櫻坂46 {{ single }}{{ single_end }}シングル 「{{
-                single_title }}」
+              乃木坂46 {{ single }}{{ single_end }}シングル 「{{ single_title }}」
               オンライン ミート＆グリート
               {{ entry }}次抽選結果
             </th>
@@ -219,20 +257,20 @@ setTimeout(captureScreenshot, 1500)
 
             <th style="max-width:180px;width:180px;font-weight: normal;" class="right-align">TT@x.com/itsunogi46</th>
 
-            <th v-for="date in dates" :key="date" class="left-border" colspan="6"
-              style="width: 120px; font-weight: normal">
-              {{ date.replace("（日）", "(日)").replace("（日・祝）", "(日・祝)").replace("（土）", "(土)").replace("2024年",
+            <th v-for="date in dates" :key="date" class="left-border" colspan="5"
+              style="width: 100px; font-weight: normal">
+              {{ date.replace("（日）", "(日)").replace("（土）", "(土)").replace("（火・祝）", "(火祝)").replace("2024年",
                 "").replace("2025年", "") }}
             </th>
-            <th class="left-align left-border" style="max-width: 170px;width:170px;font-weight: normal">
+            <th class="left-align left-border" style="max-width: 160px;width:160px;font-weight: normal">
               {{ sold[0] }}/{{ available[0] }} (+{{ soldThisTime[0] }})
             </th>
           </tr>
         </thead>
         <tbody>
 
-          <template v-for="ki in [2, 3, 4]">
-            <tr class="top-border bottom-border lighter-pink-bg">
+          <template v-for="ki in [3, 4, 5, 6]">
+            <tr class="top-border bottom-border lighter-purple-bg">
 
               <td style="font-weight: bold;" class="right-align">
                 <span>{{ sold[ki] === available[ki] ? "(完売)" : "" }}</span>
@@ -243,37 +281,31 @@ setTimeout(captureScreenshot, 1500)
               <td class="text-white">3</td>
               <td class="text-white">4</td>
               <td class="text-white">5</td>
-              <td class="text-white">6</td>
               <td class="text-white left-border">1</td>
               <td class="text-white">2</td>
               <td class="text-white">3</td>
               <td class="text-white">4</td>
               <td class="text-white">5</td>
-              <td class="text-white">6</td>
               <td class="text-white left-border">1</td>
               <td class="text-white">2</td>
               <td class="text-white">3</td>
               <td class="text-white">4</td>
               <td class="text-white">5</td>
-              <td class="text-white">6</td>
               <td class="text-white left-border">1</td>
               <td class="text-white">2</td>
               <td class="text-white">3</td>
               <td class="text-white">4</td>
               <td class="text-white">5</td>
-              <td class="text-white">6</td>
               <td class="text-white left-border">1</td>
               <td class="text-white">2</td>
               <td class="text-white">3</td>
               <td class="text-white">4</td>
               <td class="text-white">5</td>
-              <td class="text-white">6</td>
               <td class="text-white left-border">1</td>
               <td class="text-white">2</td>
               <td class="text-white">3</td>
               <td class="text-white">4</td>
               <td class="text-white">5</td>
-              <td class="text-white">6</td>
 
               <td class="left-align left-border">{{ sold[ki] }}/{{ available[ki] }} (+{{ soldThisTime[[ki]] }})</td>
             </tr>
@@ -282,25 +314,25 @@ setTimeout(captureScreenshot, 1500)
 
             <tr v-for="(member, index) in parsed.filter(member => getKi[member.name] == ki)" :key="member" class="">
 
-              <td class="memberName right-align" :class="{ 'lighter-pink-bg': member.sold === member.available }">
+              <td class="memberName right-align" :class="{ 'lighter-purple-bg': member.sold === member.available }">
                 <span :class="{ 'text-bold': member.sold === member.available && Math.max(...member.list) === entry }">
                   {{ member.sold === member.available ? "(" + Math.max(...member.list) + "次完売)" : "" }}
                 </span>
-                {{ member.name.replace("　", "") }}
+                {{ member.name }}
 
               </td>
               <td v-for="(partStatus, index) in member.list"
-                :class="{ 'part-width': true, 'left-border': (index) % 6 === 0, 'sold-this-time': partStatus == entry }">
+                :class="{ 'part-width': true, 'left-border': (index) % 5 === 0, 'sold-this-time': partStatus == entry }">
 
                 {{ partStatus == -1 ? "-" : partStatus == 0 ? " " : partStatus }}
               </td>
-              <td class="left-align left-border" :class="{ 'lighter-pink-bg': member.sold === member.available }">
+              <td class="left-align left-border" :class="{ 'lighter-purple-bg': member.sold === member.available }">
                 {{ member.sold }}/{{ member.available }} (+{{ member.soldThisTime }})
                 <span>{{ center.includes(member.name) ? "/ ｾﾝﾀｰ" : "" }}</span>
                 <span>{{ w_center.includes(member.name) ? "/ Wｾﾝﾀｰ" : "" }}</span>
                 <span>{{ row_1.includes(member.name) ? "/ ﾌﾛﾝﾄ" : "" }}</span>
-                <span>{{ row_2.includes(member.name) ? "/ 2列目" : "" }}</span>
-                <span>{{ row_3.includes(member.name) ? "/ 3列目" : "" }}</span>
+                <span>{{ fukujin.includes(member.name) ? "/ 福神" : "" }}</span>
+                <span>{{ senbatsu.includes(member.name) ? "/ 選抜" : "" }}</span>
               </td>
             </tr>
           </template>
@@ -309,13 +341,23 @@ setTimeout(captureScreenshot, 1500)
 
         </tbody>
 
-
         <tbody>
           <tr>
             <th colspan="38" class="bottom-border top-border">
-              <div style="font-size: smaller;"><span style="color: white;">AA</span>{{ sentence }}
+              <div style="font-size: smaller; font-weight: lighter;"><span style="color: white;">AA</span>{{ sentence }}
               </div>
               <div style="text-align: right;"></div>
+              <!--
+              <div style="margin: auto; width: max-content;">
+                <div style="width: 100%;font-weight: bolder;text-align: left">{{ sentence_bold }}</div>
+
+                <div style="width: 100%;font-weight: normal;text-align: left;">{{ sentence1 }}</div>
+
+                <div style="width: 100%;font-weight: normal;text-align: left;">{{ sentence2 }}</div>
+
+                <div style="width: 100%;font-weight: normal;text-align: left  ;">{{ sentence3 }}</div>
+              </div>
+              -->
 
             </th>
           </tr>
@@ -324,24 +366,17 @@ setTimeout(captureScreenshot, 1500)
         <!-- x.com/itsunogi46 -->
 
         <thead>
-          <tr>
-            <th style="font-size: larger;font-weight: bolder;" class="bottom-border" colspan="38">
-              櫻坂46 {{ single }}{{ single_end }}シングル 「{{
-                single_title }}」
-              オンライン ミート＆グリート
-              {{ entry }}次抽選結果
-            </th>
-          </tr>
+
           <tr>
 
             <th style="max-width:180px;width:180px;font-weight: normal;" class="right-align bottom-border right-border">
               TT@x.com/itsunogi46</th>
 
-            <th v-for="number in one_to_36" :key="number" colspan="1" style="width: 18px; font-weight: normal"
+            <th v-for="number in one_to_30" :key="number" colspan="1" style="width: 18.2px; font-weight: normal"
               class="bottom-border">
               {{ number }}
             </th>
-            <th class="left-align bottom-border left-border" style="max-width: 170px;width:170px;font-weight: normal">
+            <th class="left-align bottom-border left-border" style=" max-width: 160px;width:160px;font-weight: normal">
               {{ sold[0] }}/{{ available[0] }} (+{{ soldThisTime[0] }})
             </th>
           </tr>
@@ -351,11 +386,11 @@ setTimeout(captureScreenshot, 1500)
           <tr v-for="(member, index) in sorted_parsed" :key="member" class="">
 
             <td class="memberName right-align right-border"
-              :class="{ 'lighter-pink-bg': member.sold === member.available }">
+              :class="{ 'lighter-purple-bg': member.sold === member.available }">
               <span :class="{ 'text-bold': member.sold === member.available && Math.max(...member.list) === entry }">
                 {{ member.sold === member.available ? "(" + Math.max(...member.list) + "次完売)" : "" }}
               </span>
-              {{ member.name.replace("　", "") }}
+              {{ member.name }}
 
             </td>
             <td v-for="(partStatus, index) in member.list" :class="{
@@ -384,15 +419,17 @@ setTimeout(captureScreenshot, 1500)
 
               {{ partStatus == -1 ? "-" : partStatus == 0 ? " " : partStatus }}
             </td>
-            <td class="left-align left-border" :class="{ 'lighter-pink-bg': member.sold === member.available }">
+            <td class="left-align left-border" :class="{ 'lighter-purple-bg': member.sold === member.available }">
               {{ member.sold }}/{{ member.available }} (+{{ member.soldThisTime }})
               <span>{{ center.includes(member.name) ? "/ ｾﾝﾀｰ" : "" }}</span>
               <span>{{ w_center.includes(member.name) ? "/ Wｾﾝﾀｰ" : "" }}</span>
               <span>{{ row_1.includes(member.name) ? "/ ﾌﾛﾝﾄ" : "" }}</span>
-              <span>{{ row_2.includes(member.name) ? "/ 2列目" : "" }}</span>
-              <span>{{ row_3.includes(member.name) ? "/ 3列目" : "" }}</span>
+              <span>{{ fukujin.includes(member.name) ? "/ 福神" : "" }}</span>
+              <span>{{ senbatsu.includes(member.name) ? "/ 選抜" : "" }}</span>
             </td>
           </tr>
+
+
 
 
 
@@ -400,20 +437,21 @@ setTimeout(captureScreenshot, 1500)
         </tbody>
       </table>
     </div>
+    <!--
+    <div style="font-size: smaller;"><span style="color: white;">AA</span>{{ sentence_end }}</div>
+    -->
   </section>
 </template>
 
 <style scoped>
-/* 表格样式 */
 table {
-  border: 2px #E68AAE solid;
-  /* 浅粉色边框 */
+  border: 2px #812990 solid;
   table-layout: fixed;
 }
 
 th,
 td {
-  border: 0.1px #E68AAE solid;
+  border: 0.1px #812990 solid;
   height: 5px;
 }
 
@@ -421,138 +459,140 @@ td {
   font-weight: bolder;
 }
 
-.lighter-pink-bg {
-  background-color: #FDE9F2;
-  /* 淡粉背景色 */
+.lighter-purple-bg {
+  background-color: #eac9f0;
 }
 
-/* 不同状态的背景色调整为浅粉色系 */
 .partStatus1 {
-  background-color: #FDE9F2;
+  background-color: #eac9f0;
+  /* 粉紫（固定） */
 }
 
 .partStatus2 {
-  background-color: #FBDDEB;
-  /* 浅粉 */
+  background-color: #FFCC66;
+  /* 浅黄色 */
 }
 
 .partStatus3 {
-  background-color: #F9D1E4;
-  /* 浅粉偏紫 */
+  background-color: #FFE8B3;
+  /* 浅黄绿 */
 }
 
 .partStatus4 {
-  background-color: #F7C5DD;
-  /* 柔和粉紫 */
+  background-color: #E6F5B0;
+  /* 柔和草绿色 */
 }
 
 .partStatus5 {
-  background-color: #F5B9D6;
-  /* 明亮粉紫 */
+  background-color: #CFFFD0;
+  /* 浅青绿 */
 }
 
 .partStatus6 {
-  background-color: #F3ADCF;
-  /* 清新粉 */
+  background-color: #A8F3D5;
+  /* 清新薄荷绿 */
 }
 
 .partStatus7 {
-  background-color: #F1A1C8;
-  /* 青粉 */
+  background-color: #A8F0E5;
+  /* 浅青蓝 */
 }
 
 .partStatus8 {
-  background-color: #EF95C1;
-  /* 深粉 */
+  background-color: #A8E3FF;
+  /* 柔和天蓝 */
 }
 
 .partStatus9 {
-  background-color: #ED89BA;
-  /* 柔和粉红 */
+  background-color: #AAD8FF;
+  /* 柔和浅蓝 */
 }
 
 .partStatus10 {
-  background-color: #EB7DB3;
-  /* 明亮粉红 */
+  background-color: #99CCFF;
+  /* 明亮浅蓝 */
 }
 
 .partStatus11 {
-  background-color: #E971AC;
-  /* 浅紫粉 */
+  background-color: #A5B8FF;
+  /* 浅紫蓝 */
 }
 
 .partStatus12 {
-  background-color: #E765A5;
-  /* 浅紫偏粉 */
+  background-color: #B3A8FF;
+  /* 柔和浅紫 */
 }
 
 .partStatus13 {
-  background-color: #E5599E;
-  /* 深粉 */
+  background-color: #C5B3FF;
+  /* 浅紫偏蓝 */
 }
 
 .partStatus14 {
-  background-color: #E34D97;
-  /* 柔和深粉 */
+  background-color: #DAC9FF;
+  /* 柔和淡紫 */
 }
 
 .partStatus15 {
-  background-color: #E14190;
-  /* 深紫粉 */
+  background-color: #F3D8FF;
+  /* 浅粉紫 */
 }
 
 .partStatus16 {
-  background-color: #DF3589;
-  /* 深粉偏紫 */
+  background-color: #FFEAF8;
+  /* 柔和粉白 */
 }
 
 .partStatus17 {
-  background-color: #DD2982;
-  /* 极深粉 */
+  background-color: #FFF5EE;
+  /* 极浅暖粉白 */
 }
 
 .partStatus18 {
-  background-color: #DB1D7B;
-  /* 柔和暗粉 */
+  background-color: #FFF8F0;
+  /* 柔和暖白 */
 }
 
 .partStatus19 {
-  background-color: #D91174;
-  /* 深粉红 */
+  background-color: #FFF9F5;
+  /* 极淡粉白 */
 }
 
 .partStatus20 {
-  background-color: #D7056D;
-  /* 几乎纯红粉 */
+  background-color: #FFFDFE;
+  /* 接近纯白（固定） */
 }
 
-.light-pink-bg {
-  background-color: #F7C5DD;
-  /* 浅粉背景色 */
+.light-purple-bg {
+  background-color: #daa0e4;
 }
 
-/* 边框样式 */
 .left-border {
-  border-left: 2px #E68AAE solid;
+  border-left: 2px #812990 solid;
+
 }
 
 .right-border {
-  border-right: 2px #E68AAE solid;
+
+  border-right: 2px #812990 solid;
 }
 
 .top-border {
-  border-top: 2px #E68AAE solid;
+  border-top: 2px #812990 solid;
+
 }
 
 .bottom-border {
-  border-bottom: 2px #E68AAE solid;
+
+  border-bottom: 2px #812990 solid;
 }
 
 .part-width {
+  min-width: 10px;
+  width: 10px;
   max-width: 10px;
 }
 
-/* 对齐和文本样式 */
 .left-align {
   text-align: left;
   padding-left: 10px;
@@ -565,7 +605,7 @@ td {
 
 .sold-this-time {
   font-weight: bolder;
-  color: #E68AAE;
-  background-color: #F7C5DD;
+  color: #812990;
+  background-color: #daa0e4;
 }
 </style>

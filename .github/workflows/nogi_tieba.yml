@@ -1,0 +1,53 @@
+name: nogi_tieba
+
+on:
+  # schedule:
+  #   - cron: '20,50 * * * *'
+  # push:
+  #   branches:
+  #     - master
+  workflow_dispatch:
+
+jobs:
+  nogi_tieba:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        ref: master # Ensure you are on the correct branch
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8' # Specify the Python version you need
+
+    - name: Run Python script
+      run: |
+        pip install requests
+        pip install pytz
+        pip install selenium
+        pip install Pillow
+        pip install python-dotenv
+        sudo apt install unzip wget p7zip-full tmux -y
+        wget -q https://github.com/be5invis/Sarasa-Gothic/releases/download/v1.0.29/SarasaUiJ-TTF-1.0.29.7z
+        7z x SarasaUiJ-TTF-1.0.29.7z
+        ls -R
+        sudo cp *.ttf /usr/local/share/fonts
+        fc-cache -f -v
+        fc-list | grep Sarasa
+        wget -q https://dl.google.com/linux/deb/pool/main/g/google-chrome-stable/google-chrome-stable_134.0.6998.88-1_amd64.deb
+        wget -q https://storage.googleapis.com/chrome-for-testing-public/134.0.6998.88/linux64/chromedriver-linux64.zip
+        sudo apt install ./google-chrome-stable_134.0.6998.88-1_amd64.deb -y --allow-downgrades
+        unzip chromedriver-linux64.zip
+        sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
+        sudo chmod +x /usr/bin/chromedriver
+        npm install
+        tmux new-session -d -s mysession 'npm run dev'
+        python public/nogi/gen_table_tieba.py
+      env:
+          PAT: ${{ secrets.PAT }}          
+          COOKIE_BASE64: ${{ secrets.COOKIE_BASE64 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+

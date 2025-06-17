@@ -3,10 +3,10 @@ import json
 import os
 from dotenv import load_dotenv
 import base64
+import subprocess
 
-
-entry = 9
-fetch_url = f"https://fortunemusic.jp/hinatazaka_202505/{entry+1}/goods_list/"
+entry = 1
+fetch_url = f"https://fortunemusic.jp/nogizaka_202507/{entry+1}/goods_list/"
 
 # Get the directory of the current Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -69,32 +69,16 @@ def parse_json():
 
                 temp = []
                 if "parts" in date:
-                    if member["name"] in [
-                        "大田美月",
-                        "大野愛実",
-                        "片山紗希",
-                        "蔵盛妃那乃",
-                        "坂井新奈",
-                        "大田　美月",
-                        "大野　愛実",
-                        "片山　紗希",
-                        "蔵盛　妃那乃",
-                        "坂井　新奈",
-                    ]:
-                        temp.extend([-1])
-                    if member["name"] in [
-                        "佐藤優羽",
-                        "下田衣珠季",
-                        "高井俐香",
-                        "鶴崎仁香",
-                        "松尾桜",
-                        "佐藤　優羽",
-                        "下田　衣珠季",
-                        "高井　俐香",
-                        "鶴崎　仁香",
-                        "松尾　桜",
-                    ]:
-                        temp.extend([-1, -1, -1])
+                    if (
+                        member["name"] == "林瑠奈"
+                        and date["date"] == "2025年8月30日（土）"
+                    ):
+                        temp.extend([-1, -1, -1, -1, -1])
+                    if (
+                        member["name"] == "黒見明香"
+                        and date["date"] == "2025年10月12日（日）"
+                    ):
+                        temp.extend([-1, -1, -1, -1, -1])
 
                     for part in date["parts"]:
                         if part["stock"] > 0:
@@ -102,32 +86,29 @@ def parse_json():
                         else:
                             temp.append(1)  # lottery index
 
-                    if member["name"] in [
-                        "大田美月",
-                        "大野愛実",
-                        "片山紗希",
-                        "蔵盛妃那乃",
-                        "坂井新奈",
-                        "大田　美月",
-                        "大野　愛実",
-                        "片山　紗希",
-                        "蔵盛　妃那乃",
-                        "坂井　新奈",
-                    ]:
-                        temp.extend([-1, -1, -1])
-                    if member["name"] in [
-                        "佐藤優羽",
-                        "下田衣珠季",
-                        "高井俐香",
-                        "鶴崎仁香",
-                        "松尾桜",
-                        "佐藤　優羽",
-                        "下田　衣珠季",
-                        "高井　俐香",
-                        "鶴崎　仁香",
-                        "松尾　桜",
-                    ]:
-                        temp.extend([-1])
+                    if member["name"] == "愛宕心響":
+                        temp = [temp[0], temp[1], -1, temp[2], -1]
+                    if member["name"] == "大越ひなの":
+                        temp = [temp[0], temp[1], -1, temp[2], -1]
+                    # if member["name"] == "小津玲奈":
+                    #     temp = [temp[0], temp[1], temp[2]]
+                    if member["name"] == "海邉朱莉":
+                        temp = [temp[0], -1, temp[1], temp[2], -1]
+                    if member["name"] == "川端晃菜":
+                        temp = [-1, temp[0], temp[1], -1, temp[2]]
+                    if member["name"] == "鈴木佑捺":
+                        temp = [-1, temp[0], temp[1], -1, temp[2]]
+                    if member["name"] == "瀬戸口心月":
+                        temp = [temp[0], -1, temp[1], temp[2], -1]
+                    if member["name"] == "長嶋凛桜":
+                        temp = [temp[0], -1, temp[1], -1, temp[2]]
+                    if member["name"] == "増田三莉音":
+                        temp = [temp[0], -1, temp[1], -1, temp[2]]
+                    if member["name"] == "森平麗心":
+                        temp = [-1, temp[0], -1, temp[1], temp[2]]
+                    if member["name"] == "矢田萌華":
+                        temp = [-1, temp[0], -1, temp[1], temp[2]]
+
                     result[member["name"]][date["date"]] = temp
 
         with open(os.path.join(script_dir, "result_parsed.json"), "w") as json_result:
@@ -136,32 +117,35 @@ def parse_json():
 
 
 def gen_json():
-    last = 0
-    for i in range(1, 46):
-        if os.path.exists(os.path.join(script_dir, f"result_{i}.json")):
-            last = i
-    with open(os.path.join(script_dir, f"result_{last}.json"), "r") as last_json_result:
+    if entry == 0:
+        src = os.path.join(script_dir, "result_parsed.json")
+        dst = os.path.join(script_dir, "result_0.json")
+        subprocess.run(["cp", src, dst], check=True)
+    else:
         with open(
-            os.path.join(script_dir, f"result_parsed.json"), "r"
-        ) as current_json_result:
-
-            data_current = json.load(current_json_result)
-            data = json.load(last_json_result)
-            for member in data:
-                for date in data[member]:
-                    for part in range(0, 6):
-                        # print(member, date, part)
-                        if (
-                            member in data_current
-                            and date in data_current[member]
-                            and data_current[member][date][part] > 0
-                            and data[member][date][part] == 0
-                        ):
-                            data[member][date][part] = last + 1
+            os.path.join(script_dir, f"result_{entry-1}.json"), "r"
+        ) as last_json_result:
             with open(
-                os.path.join(script_dir, f"result_{last+1}.json"), "w"
-            ) as json_result:
-                json.dump(data, json_result, ensure_ascii=False, indent=2)
+                os.path.join(script_dir, f"result_parsed.json"), "r"
+            ) as current_json_result:
+
+                data_current = json.load(current_json_result)
+                data = json.load(last_json_result)
+                for member in data:
+                    for date in data[member]:
+                        for part in range(0, 5):
+                            # print(member, date, part)
+                            if (
+                                member in data_current
+                                and date in data_current[member]
+                                and data_current[member][date][part] > 0
+                                and data[member][date][part] == 0
+                            ):
+                                data[member][date][part] = entry
+                with open(
+                    os.path.join(script_dir, f"result_{entry}.json"), "w"
+                ) as json_result:
+                    json.dump(data, json_result, ensure_ascii=False, indent=2)
 
 
 import datetime
@@ -179,8 +163,8 @@ def send_file_to_channel(filename):
             with open(os.path.join(script_dir, filename), "rb") as file:
                 # Prepare the request payload
                 data = {
-                    "chat_id": "-1001982849593",  # "chat_id": "-1002350782955",
-                    "caption": datetime.datetime.now().strftime("%Y%m%d-Hina"),
+                    "chat_id": "-1002350782955",  # Group: "-1002350782955", Channel:"-1001982849593"
+                    "caption": datetime.datetime.now().strftime("%Y%m%d-Nogi"),
                 }
                 files = {"document": file}
 
@@ -217,7 +201,7 @@ def get_result_img():
     chrome_options.add_argument("--no-sandbox")
     service = Service("/usr/bin/chromedriver")
     driver = webdriver.Chrome(service=service, options=chrome_options)
-    driver.get("http://localhost:5173#h")
+    driver.get("http://localhost:5173#nt")
     time.sleep(5)
     element = driver.find_element(By.XPATH, "//img")
     src = element.get_attribute("src")
@@ -276,5 +260,10 @@ if test_login():
                 if not os.path.exists("/mnt/c/windows"):
                     get_result_img()
                 break
-            except:
+            except Exception as e:
+                print("Error:", e)
+                with open(os.path.join(script_dir, "error_log.txt"), "a") as error_log:
+                    error_log.write(f"{datetime.datetime.now()}: {e}\n")
+                send_file_to_channel("error_log.txt")
+                time.sleep(60)
                 pass

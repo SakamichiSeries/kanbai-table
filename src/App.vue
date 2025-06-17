@@ -4,6 +4,8 @@ import MiguriTableNogi_Special from './components/MiguriTableNogi_Special.vue'
 import MiguriTableSaku_Special from './components/MiguriTableSaku_Special.vue'
 import MiguriTableHina_Special from './components/MiguriTableHina_Special.vue'
 
+import MiguriTableNogi_Tieba from './components/MiguriTableNogi_Tieba.vue';
+
 import MiguriTableNogi from './components/MiguriTableNogi.vue';
 import MiguriTableSaku from './components/MiguriTableSaku.vue';
 import MiguriTableHina from './components/MiguriTableHina.vue';
@@ -17,6 +19,7 @@ const currentComponent = ref('MiguriTableNogi');
 const componentsMap = {
   n: MiguriTableNogi,
   ns: MiguriTableNogi_Special,
+  nt: MiguriTableNogi_Tieba,
   s: MiguriTableSaku,
   ss: MiguriTableSaku_Special,
   sa: MiguriTableSaku_Album,
