@@ -7,7 +7,7 @@ let single_title = "Same numbers"
 let single_hashtag = "#乃木坂46_samenumbers"
 let other_hashtag = ""//"#さつきとーく"
 // Noto Color Emoji
-let sentence = "😡小黑子们不许拿我的图攻击菅原咲月👊"//"🩷「でも皆さんの声が聞こえた瞬間、緊張が一気に自分のパワーになって。」🩵"
+let sentence = "一年做三次一抽图，每次都有新一姐" //😡小黑子们不许拿我的图攻击菅原咲月👊"//"🩷「でも皆さんの声が聞こえた瞬間、緊張が一気に自分のパワーになって。」🩵"
 let sentence_bold = "「乃木坂46を受けようと思ったきっかけはなんですか？」"
 let sentence1 = "最終的に、この道を選んだのは私自身。"
 let sentence2 = "他の誰でもなく自分の心に従った結果なのだから、変われる気がするんです。"
